@@ -13,6 +13,7 @@ public class GUI implements ActionListener {
     private static JPanel panel;
     private static JLabel userLabel;
     private static JLabel userRegisLabel;
+    private static JLabel userAddedLabel;
     private static JTextField userText;
     private static JTextField userRegisText;
     private static JLabel passwordLabel;
@@ -21,6 +22,7 @@ public class GUI implements ActionListener {
     private static JTextField passwordRegisText;
     private static JButton loginButton;
     private static JButton registerButton;
+    private static JButton completeButton;
     private static JLabel result;
     private static HashMap<String, String> userInfo = new HashMap<String, String>();
     
@@ -75,11 +77,22 @@ public class GUI implements ActionListener {
 
         //Register half of the program
 
-        // Creates a login button
+        // Creates a register button
         registerButton = new JButton("Register");
         registerButton.setBounds(10, 105, 100, 25);
         registerButton.addActionListener(new GUI());
         panel.add(registerButton);
+
+        // Creates a complete button
+        completeButton = new JButton("Complete");
+        completeButton.setBounds(170, 105, 100, 25);
+        completeButton.addActionListener(new GUI());
+        panel.add(completeButton);
+
+        // Creates label for User being added
+        userAddedLabel = new JLabel("");
+        userAddedLabel.setBounds(100, 75, 110, 25);
+        panel.add(userAddedLabel);
         
 
         // Creates a registration user label and text field
@@ -122,15 +135,15 @@ public class GUI implements ActionListener {
                 result.setText("Login failed");
             }
         }
-        else { // If the register button is clicked
+        else if (whichButton == registerButton) {
+            //userInfo.put("blankUser", "blankPassword");
+            userInfo.put(registeredUser, registeredPassword);
+            userAddedLabel.setText("¡User " + registeredUser + " Added!");
+        } else { // If the complete button is clicked
             loginVisible();
             registerInvisible();
-            userInfo.put("blankUser", "blankPassword");
-            userInfo.put(registeredUser, registeredPassword);
-            
-        
+            System.out.print(userInfo);
         }
-
 
         }
 
@@ -146,10 +159,12 @@ public class GUI implements ActionListener {
     //Makes the registration portion of the program invisible
     public void registerInvisible() {
         registerButton.setVisible(false);
+        completeButton.setVisible(false);
         userRegisLabel.setVisible(false);
         userRegisText.setVisible(false);
         passwordRegisLabel.setVisible(false);
         passwordRegisText.setVisible(false);
+        userAddedLabel.setVisible(false);
     }
  
     /* public void setUpButtonListeners() {
